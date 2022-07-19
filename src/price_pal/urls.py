@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from grocery.views import home_view, search_results_view, add_item_view, update_price_view, shopping_list_view
+from grocery.views import home_view, search_results_view, add_item_view, update_price_view
+from grocery_list.views import shopping_list_view
 
 urlpatterns = [
     path('', home_view, name='home'),

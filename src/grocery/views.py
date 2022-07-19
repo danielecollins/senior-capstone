@@ -1,20 +1,25 @@
 from django.shortcuts import render
 from .models import Item
+from grocery_list.models import List
 from .forms import AddItemForm
 from pattern.text.en import singularize
 
-# Create your views here.
 def home_view(request, *args, **kwargs):
+    # Render the search/home page
     context = {
     }
     return render(request, "home.html", context)
 
 def search_results_view(request, *args, **kwargs):
+    # Search functionality
     search = request.GET['search']
     search = search.lower().strip(' ')
 
     query = singularize(search)
     items = Item.objects.filter(name__contains=query)
+
+    # Add item to list
+
 
     context = {
         "items": items,
@@ -23,11 +28,13 @@ def search_results_view(request, *args, **kwargs):
     return render(request, "search_results.html", context)
 
 def add_item_view(request, *args, **kwargs):
+    # Pass over the item name from the search results
     try:
         name = request.GET['name']
     except:
         name = None
 
+    # Create a new item
     form = AddItemForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -41,6 +48,7 @@ def add_item_view(request, *args, **kwargs):
 
 def update_price_view(request, *args, **kwargs):
     # Need to fix update statements
+    # Get the item that needs a price update from the shopping list page
     if request.method == "GET":
         item = request.GET['item']
 
@@ -49,6 +57,7 @@ def update_price_view(request, *args, **kwargs):
         else:
             store = request.GET['store']
 
+    # Update the prices
     if request.method == "POST":
         new_price = request.POST.get('price')
         if store == "Walmart":
@@ -63,11 +72,3 @@ def update_price_view(request, *args, **kwargs):
         "item": item,
     }
     return render(request, "update_price.html", context)
-
-def shopping_list_view(request, *args, **kwargs):
-    context = {
-        "walmart_list": [],
-        "broulims_list": ["Lays Potato Chips", "Salsa"],
-        "albertsons_list": ["Ham", "Doritos", "Milk", "Eggs"],
-    }
-    return render(request, "shopping_list.html", context)

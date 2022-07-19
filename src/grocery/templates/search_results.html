@@ -33,7 +33,18 @@
                 {% endif %}
             </p>
             <form method="POST"> {% csrf_token %}
-                
+                {% if item.walmart_price <= item.broulims_price and item.walmart_price <= item.albertsons_price %}
+                    <input type="hidden" name="store" value="walmart"/>
+                    <input type="hidden" name="price" value="{{ item.walmart_price }}"/>
+                {% elif item.broulims_price < item.albertsons_price %}
+                    <input type="hidden" name="store" value="broulims"/>
+                    <input type="hidden" name="price" value="{{ item.broulims_price }}"/>
+                {% else %}
+                    <input type="hidden" name="store" value="albertsons"/>
+                    <input type="hidden" name="price" value="{{ item.albertsons_price }}"/>
+                {% endif %}
+                <input type="hidden" name="name" value="{{ item.name }}"/>
+                <input type="submit" value="Add {{ item.name|title }} to Shopping List"/>
             </form>
         {% endfor %}
         <p>Can't find what you're looking for? <a href="/add-item">Click here</a> to add item.</p>
