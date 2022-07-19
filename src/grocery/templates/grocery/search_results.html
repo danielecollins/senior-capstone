@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Search Results</h1>
+    <h2>{{ item.name }}</h2>
+    <p> Walmart Price: {{ item.walmart_price }} </p>
+    <p> Broulim's Price: {{ item.broulims_price }} </p>
+    <p> Albertson's Price: {{ item.albertsons_price }} </p>
+{% endblock content %}
