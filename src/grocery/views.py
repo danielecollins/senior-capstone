@@ -1,8 +1,7 @@
-from unittest import case
-import django
 from django.shortcuts import render
 from .models import Item
 from .forms import AddItemForm
+from pattern.text.en import singularize
 
 # Create your views here.
 def home_view(request, *args, **kwargs):
@@ -11,35 +10,44 @@ def home_view(request, *args, **kwargs):
     return render(request, "home.html", context)
 
 def search_results_view(request, *args, **kwargs):
-    # Needs fixing, doesn't work if the search isn't in the database.
-    search = request.GET['q']
-    item = Item.objects.get(name=search)
-    if item is None:
-        item = 0
+    search = request.GET['search']
+    search = search.lower().strip(' ')
+
+    query = singularize(search)
+    items = Item.objects.filter(name__contains=query)
+
     context = {
-        "item": item
+        "items": items,
+        "search": search,
     }
     return render(request, "search_results.html", context)
 
 def add_item_view(request, *args, **kwargs):
+    try:
+        name = request.GET['name']
+    except:
+        name = None
+
     form = AddItemForm(request.POST or None)
     if form.is_valid():
-        Item.objects.create(**form.cleaned_data)
+        form.save()
         form = AddItemForm()
 
     context = {
         'form': form,
+        'name': name,
     }
     return render(request, "add_item.html", context)
 
 def update_price_view(request, *args, **kwargs):
     # Need to fix update statements
-    item = request.GET['item']
+    if request.method == "GET":
+        item = request.GET['item']
 
-    if request.GET['store'] == "Broulims":
-        store = "Broulim's"
-    else:
-        store = request.GET['store']
+        if request.GET['store'] == "Broulims":
+            store = "Broulim's"
+        else:
+            store = request.GET['store']
 
     if request.method == "POST":
         new_price = request.POST.get('price')

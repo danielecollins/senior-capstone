@@ -1,7 +1,9 @@
+from ast import Try
+from tkinter import Variable
 from django import forms
 from .models import Item
 
-class AddItemForm(forms.Form):
+class AddItemForm(forms.ModelForm):
     name = forms.CharField(label="Item Name:", widget=forms.TextInput(attrs={"placeholder": "Item Name"}))
     quantity = forms.CharField(required=False)
     walmart_price = forms.DecimalField(required=False, label="Walmart Price:", widget=forms.NumberInput(attrs={"placeholder": 0.00}))
@@ -21,4 +23,9 @@ class AddItemForm(forms.Form):
     def clean_name(self, *args, **kwargs):
         name = self.cleaned_data.get("name")
         name = name.lower()
-        return name        
+
+        try:
+            if Item.objects.get(name=name) != None:
+                raise forms.ValidationError("This item is already in the database.")
+        except:
+            return name        
