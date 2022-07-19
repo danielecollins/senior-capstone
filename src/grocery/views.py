@@ -24,9 +24,21 @@ def search_results_view(request, *args, **kwargs):
         id = request.POST.get('id')
 
         item = Item.objects.get(id=id)
-        if item.broulims_price is None and item.albertsons_price is None or item.walmart_price <= item.broulims_price and item.walmart_price <= item.albertsons_price:
+
+        w_price = item.walmart_price
+        b_price = item.broulims_price
+        a_price = item.albertsons_price
+
+        if item.walmart_price is None:
+            w_price = 1000000
+        if item.broulims_price is None:
+            b_price = 1000000
+        if item.albertsons_price is None:
+            a_price = 1000000
+
+        if w_price <= b_price and w_price <= a_price:
             store = "walmart"
-        elif item.albertsons_price is None or item.broulims_price < item.albertsons_price:
+        elif b_price < a_price:
             store = "broulims"
         else:
             store = "albertsons"
