@@ -1,4 +1,19 @@
 body {
-    background-color: aqua;
-    text-decoration: underline;
+    background-color: #3D52D5;
+    color: white;
+    font-size: x-large;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+a {
+    color: #F4A615;
+}
+
+ul {
+    list-style: none;
 }
