@@ -2,6 +2,6 @@ from django.db import models
 
 # Create your models here.
 class List(models.Model):
-    walmart_list = models.TextField(max_length=10000, null=True)
-    broulims_list = models.TextField(max_length=10000, null=True)
-    albertsons_list = models.TextField(max_length=10000, null=True)
+    store = models.CharField(max_length=50)
+    quantity = models.IntegerField()
+    item_id = models.IntegerField(null=False)

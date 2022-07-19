@@ -1,3 +1,4 @@
+from venv import create
 from django.shortcuts import render
 from .models import Item
 from grocery_list.models import List
@@ -18,8 +19,27 @@ def search_results_view(request, *args, **kwargs):
     query = singularize(search)
     items = Item.objects.filter(name__contains=query)
 
-    # Add item to list
+    # Pull data to put into shopping list
+    if request.method == "POST":
+        id = request.POST.get('id')
 
+        item = Item.objects.get(id=id)
+        if item.broulims_price is None and item.albertsons_price is None or item.walmart_price <= item.broulims_price and item.walmart_price <= item.albertsons_price:
+            store = "walmart"
+        elif item.albertsons_price is None or item.broulims_price < item.albertsons_price:
+            store = "broulims"
+        else:
+            store = "albertsons"
+
+        # Populate/Update shopping list
+        try:
+            list_item = List.objects.get(item_id=id)
+            current_quantity = list_item.quantity
+            list_item.quantity = current_quantity + 1
+            list_item.save()
+        except:
+            new_list_item = List(store=store, quantity=1, item_id=id)
+            new_list_item.save()
 
     context = {
         "items": items,
