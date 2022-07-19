@@ -82,10 +82,10 @@ def update_price_view(request, *args, **kwargs):
         item.save()
     elif store == "Broulim's":
         item.broulims_price = new_price
-        item.save
+        item.save()
     elif store == "Albertsons":
         item.albertsons_price = new_price
-        item.save
+        item.save()
 
     context = {
         "store": store,
