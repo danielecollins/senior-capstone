@@ -67,10 +67,9 @@ def add_item_view(request, *args, **kwargs):
     return render(request, "add_item.html", context)
 
 def update_price_view(request, *args, **kwargs):
-    # Get the item that needs a price update from the shopping list page
+    # Get the item that needs a price update from the shopping list page    
     name = request.GET['name']
     item = Item.objects.get(name=name)
-
     if request.GET['store'] == "Broulims":
         store = "Broulim's"
     else:

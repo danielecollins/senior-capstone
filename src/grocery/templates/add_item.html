@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Add {{ name|title }} to the Database</h1>
+    {% if name is None %}
+        <h1>Your item has been added!</h1>
+    {% else %}
+        <h1>Add {{ name|title }} to the Database</h1>
+    {% endif %}
     <form method="POST"> {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Save" />
