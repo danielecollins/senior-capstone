@@ -11,7 +11,8 @@
             <li>
                 <form method="POST"> {% csrf_token %}
                     <input type="hidden" name="id" value="{{ item.id }}"/>
-                    <input type="checkbox" name="bought" onChange="this.form.submit()"/>
+                    <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
+                    <input type="checkbox" name="bought" onchange="this.form.submit()"/>
                 </form>
                 {{ item.quantity }}  {{ item.name|title }} - 
                 {% if item.price is None %}
