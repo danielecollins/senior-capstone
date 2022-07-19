@@ -1,8 +1,10 @@
+{% load staticfiles %}
 <!doctype html>
 <html>
     <head>
         <title>Price Pal</title>
-        <link rel="stylesheet" href="mobile.css">
+        <!-- CSS CUSTOM -->
+        <link rel=”stylesheet” href=”{% static ‘css/styles.css’ %}”>
     </head>
     <body>
         {% block content %}{% endblock content %}
