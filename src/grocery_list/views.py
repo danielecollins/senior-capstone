@@ -1,17 +1,44 @@
 from django.shortcuts import render
 from .models import List
+from grocery.models import Item
 
 def shopping_list_view(request, *args, **kwargs):
-    if item.walmart_price <= item.broulims_price and item.walmart_price <= item.albertsons_price:
-        price = item.walmart_price
-    elif item.broulims_price < item.albertsons_price:
-        price = item.broulims_price
-    else:
-        price = item.albertsons_price
+    #Delete item from shopping list
+    if request.method == "POST":
+        id = request.POST.get('id')
+        List.objects.get(id=id).delete()
 
+    grocery_list = List.objects.all()
     walmart_list = []
     broulims_list = []
     albertsons_list = []
+
+    #Collect data for shopping list population
+    for list_obj in grocery_list:
+        item = Item.objects.get(id=list_obj.item_id)
+        store = list_obj.store
+
+        if store == "walmart":
+            price = item.walmart_price
+        elif store == "broulims":
+            price = item.broulims_price
+        else:
+            price = item.albertsons_price
+
+        quantity = list_obj.quantity
+        name = item.name
+        id = list_obj.id
+
+        list_item = {"store": store, "quantity":quantity, "name": name,"price": price, "id": id}
+
+        if store == "walmart":
+            walmart_list.append(list_item)
+        elif store == "broulims":
+            broulims_list.append(list_item)
+        else:
+            albertsons_list.append(list_item)
+
+    
 
     context = {
         "walmart_list": walmart_list,

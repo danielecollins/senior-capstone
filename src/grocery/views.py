@@ -67,28 +67,29 @@ def add_item_view(request, *args, **kwargs):
     return render(request, "add_item.html", context)
 
 def update_price_view(request, *args, **kwargs):
-    # Need to fix update statements
     # Get the item that needs a price update from the shopping list page
-    if request.method == "GET":
-        item = request.GET['item']
+    name = request.GET['name']
+    item = Item.objects.get(name=name)
 
-        if request.GET['store'] == "Broulims":
-            store = "Broulim's"
-        else:
-            store = request.GET['store']
+    if request.GET['store'] == "Broulims":
+        store = "Broulim's"
+    else:
+        store = request.GET['store']
 
     # Update the prices
-    if request.method == "POST":
-        new_price = request.POST.get('price')
-        if store == "Walmart":
-            Item.objects.update(walmart_price=new_price)
-        elif store == "Broulim's":
-            Item.objects.update(broulims_price=new_price)
-        elif store == "Albertsons":
-            Item.objects.update(albertsons_price=new_price)
+    new_price = request.POST.get('price' or None)
+    if store == "Walmart":
+        item.walmart_price = new_price
+        item.save()
+    elif store == "Broulim's":
+        item.broulims_price = new_price
+        item.save
+    elif store == "Albertsons":
+        item.albertsons_price = new_price
+        item.save
 
     context = {
         "store": store,
-        "item": item,
+        "name": name,
     }
     return render(request, "update_price.html", context)
