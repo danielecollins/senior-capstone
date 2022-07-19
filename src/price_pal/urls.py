@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from grocery.views import home_view, search_results_view, add_item_view, shopping_list_view
+from grocery.views import home_view, search_results_view, add_item_view, update_price_view, shopping_list_view
 
 urlpatterns = [
     path('', home_view, name='home'),
     path('search-results/', search_results_view, name='search_results'),
     path('add-item/', add_item_view, name='add_item'),
+    path('update-price/', update_price_view, name='update_price'),
     path('shopping-list/', shopping_list_view, name='shopping_list'),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Update Price of</h1>
+    <form action="." method="POST"> {% csrf_token %}
+        <input type="hidden" name="name" value=""/>
+        <label>Item Price:
+            <input type="number" name="price" placeholder="$0.00"/>
+        </label>
+        <input type="submit" value="Save" />
+    </form>
+{% endblock content %}
