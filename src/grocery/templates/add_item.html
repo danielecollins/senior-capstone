@@ -6,8 +6,8 @@
     {% else %}
         <h1>Add {{ name|title }} to the Database</h1>
     {% endif %}
-    <form method="POST"> {% csrf_token %}
+    <form id="add-item" method="POST"> {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Save" />
+        <input class="save" type="submit" value="Save" />
     </form>
 {% endblock content %}

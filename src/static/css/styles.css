@@ -32,7 +32,7 @@ h2 {
     margin: 0;
 }
 
-/*Forms*/
+/*Search*/
 form {
     width: fit-content;
     height: 100px;
@@ -130,6 +130,48 @@ input.checkbox {
     margin-left: 165%;
 }
 
-.update-price {
-    
+/*Update Price*/
+#update-price-title {
+    font-size: 100px;
+}
+
+#update-price {
+    margin-top: 20%;
+}
+
+.label {
+    font-size: 80px;
+}
+
+.field {
+    font-size: 80px;
+    width: 40%;
+}
+
+.save {
+    font-size: 80px;
+}
+
+/*Add Item*/
+#add-item {
+    margin-bottom: 85%;
+    margin-top: 15%;
+}
+
+#add-item p {
+    margin-bottom: 7%;
+    margin-top: 7%;
+}
+
+#add-item .save {
+    margin-top: 6%;
+}
+
+#add-item p label{
+    font-size: 60px;
+}
+
+#add-item p input {
+    font-size: 60px;
+    margin-left: 20px;
 }
