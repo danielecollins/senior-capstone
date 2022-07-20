@@ -6,7 +6,7 @@
             <h3>No results for {{ search|title }}. Click the button below to add {{ search }} to the database.</h3>
             <form action="/add-item/" method="GET">
                 <input type="hidden" name="name" value="{{ search }}"/>
-                <input type="submit" name="add_item" value="Add {{ search|title }} to Database"/>
+                <input class="btn result-btn" type="submit" name="add_item" value="Add {{ search|title }} to Database"/>
             </form>
     {% else %}
         {% for item in items %}        
@@ -16,7 +16,7 @@
                     <form action="/update-price" method="GET">
                         <input type="hidden" name="store" value="Walmart"/>
                         <input type="hidden" name="name" value="{{ item.name }}"/>
-                        <input type="submit" value="Add Price"/>
+                        <input class="btn result-btn" type="submit" value="Add Price"/>
                     </form>
                 {% else %}
                     ${{ item.walmart_price }}
@@ -27,7 +27,7 @@
                     <form action="/update-price" method="GET">
                         <input type="hidden" name="store" value="Broulims"/>
                         <input type="hidden" name="name" value="{{ item.name }}"/>
-                        <input type="submit" value="Add Price"/>
+                        <input class="btn result-btn" type="submit" value="Add Price"/>
                     </form>
                 {% else %}
                     ${{ item.broulims_price }}
@@ -38,7 +38,7 @@
                     <form action="/update-price" method="GET">
                         <input type="hidden" name="store" value="Albertsons"/>
                         <input type="hidden" name="name" value="{{ item.name }}"/>
-                        <input type="submit" value="Add Price"/>
+                        <input class="btn result-btn" type="submit" value="Add Price"/>
                     </form>
                 {% else %}
                     ${{ item.albertsons_price }}
@@ -46,9 +46,9 @@
             </p>
             <form method="POST"> {% csrf_token %}
                 <input type="hidden" name="id" value="{{ item.id }}"/>
-                <input type="submit" value="Add Cheapest to Shopping List"/>
+                <input class="btn result-btn" type="submit" value="Add Cheapest to Shopping List"/>
             </form>
         {% endfor %}
-        <p>Can't find what you're looking for? <a href="/add-item">Click here</a> to add item.</p>
+        <p>Can't find what you're looking for? <a href="/add-item" id="click-here">Click here</a> to add item.</p>
     {% endif %}
 {% endblock content %}
