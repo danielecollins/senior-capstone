@@ -22,7 +22,7 @@
                         ${{ item.price }} Each
                     {% endif %}
                 </p>
-                <form action="/update-price/" method="GET">
+                <form class="update-price-list" action="/update-price/" method="GET">
                     <input type="hidden" name="store" value="Walmart"/>
                     <input type="hidden" name="name" value="{{ item.name }}"/>
                     <input class="btn" type="submit" value="Update Price"/>
@@ -50,7 +50,7 @@
                         ${{ item.price }} Each
                     {% endif %}
                 </p>
-                <form action="/update-price/" method="GET">
+                <form class="update-price-list" action="/update-price/" method="GET">
                     <input type="hidden" name="store" value="Broulims"/>
                     <input type="hidden" name="name" value="{{ item.name }}"/>
                     <input class="btn" type="submit" value="Update Price"/>
@@ -78,7 +78,7 @@
                         ${{ item.price }} Each
                     {% endif %}
                 </p>
-                <form action="/update-price/" method="GET">
+                <form class="update-price-list" action="/update-price/" method="GET">
                     <input type="hidden" name="store" value="Albertsons"/>
                     <input type="hidden" name="name" value="{{ item.name }}"/>
                     <input class="btn" type="submit" value="Update Price"/>

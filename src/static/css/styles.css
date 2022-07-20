@@ -111,12 +111,18 @@ a {
     font-size: 20px;
     display: grid;
     grid-template-columns: 10% 65% 25%;
+    margin-bottom: 1%;
+    text-align: left;
 }
 
 input.checkbox {
     width: 75px;
     height: 75px;
     margin-top: 10px;
+}
+
+.update-price-list input {
+    margin-top: 10%;
 }
 
 /*Search Results*/
