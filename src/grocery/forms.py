@@ -4,11 +4,11 @@ from django import forms
 from .models import Item
 
 class AddItemForm(forms.ModelForm):
-    name = forms.CharField(label="Item Name", widget=forms.TextInput(attrs={"placeholder": "Item Name", 'class': 'field'}))
-    quantity = forms.CharField(label="Quantity", required=False, widget=forms.TextInput(attrs={'class': 'field'}))
-    walmart_price = forms.DecimalField(required=False, label="Walmart Price", widget=forms.NumberInput(attrs={"placeholder": 0.00, 'class': 'field'}))
-    broulims_price = forms.DecimalField(required=False, label="Broulim's Price", widget=forms.NumberInput(attrs={"placeholder": 0.00, 'class': 'field'}))
-    albertsons_price = forms.DecimalField(required=False, label="Albertsons Price", widget=forms.NumberInput(attrs={"placeholder": 0.00, 'class': 'field'}))
+    name = forms.CharField(label="Item Name", widget=forms.TextInput(attrs={'class': 'add-item-field'}))
+    quantity = forms.CharField(label="Quantity", required=False, widget=forms.TextInput(attrs={'class': 'add-item-field'}))
+    walmart_price = forms.DecimalField(required=False, label="Walmart Price", widget=forms.NumberInput(attrs={"placeholder": 0.00, 'class': 'add-item-field'}))
+    broulims_price = forms.DecimalField(required=False, label="Broulim's Price", widget=forms.NumberInput(attrs={"placeholder": 0.00, 'class': 'add-item-field'}))
+    albertsons_price = forms.DecimalField(required=False, label="Albertsons Price", widget=forms.NumberInput(attrs={"placeholder": 0.00, 'class': 'add-item-field'}))
 
     class Meta:
         model = Item

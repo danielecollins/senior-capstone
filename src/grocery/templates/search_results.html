@@ -1,54 +1,62 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Search Results for {{ search|title }}</h1>
-    {% if items|length is 0 %}
+    <h1 id="results-ttl">Search Results for {{ search|title }}</h1>
+    <main id="search-results">
+        {% if items|length is 0 %}
             <h3>No results for {{ search|title }}. Click the button below to add {{ search }} to the database.</h3>
             <form action="/add-item/" method="GET">
                 <input type="hidden" name="name" value="{{ search }}"/>
-                <input class="btn result-btn" type="submit" name="add_item" value="Add {{ search|title }} to Database"/>
+                <input class="btn" id="missing-item-btn" type="submit" name="add_item" value="Add {{ search|title }} to Database"/>
             </form>
-    {% else %}
-        {% for item in items %}        
-            <h2>{{ item.name|title }}</h2>
-            <p>Walmart Price: 
-                {% if item.walmart_price is None %}
-                    <form action="/update-price" method="GET">
-                        <input type="hidden" name="store" value="Walmart"/>
-                        <input type="hidden" name="name" value="{{ item.name }}"/>
-                        <input class="btn result-btn" type="submit" value="Add Price"/>
-                    </form>
-                {% else %}
-                    ${{ item.walmart_price }}
-                {% endif %}
-            </p>
-            <p>Broulim's Price: 
-                {% if item.broulims_price is None %}
-                    <form action="/update-price" method="GET">
-                        <input type="hidden" name="store" value="Broulims"/>
-                        <input type="hidden" name="name" value="{{ item.name }}"/>
-                        <input class="btn result-btn" type="submit" value="Add Price"/>
-                    </form>
-                {% else %}
-                    ${{ item.broulims_price }}
-                {% endif %}
-            </p>
-            <p>Albertson's Price: 
-                {% if item.albertsons_price is None %}
-                    <form action="/update-price" method="GET">
-                        <input type="hidden" name="store" value="Albertsons"/>
-                        <input type="hidden" name="name" value="{{ item.name }}"/>
-                        <input class="btn result-btn" type="submit" value="Add Price"/>
-                    </form>
-                {% else %}
-                    ${{ item.albertsons_price }}
-                {% endif %}
-            </p>
-            <form method="POST"> {% csrf_token %}
-                <input type="hidden" name="id" value="{{ item.id }}"/>
-                <input class="btn result-btn" type="submit" value="Add Cheapest to Shopping List"/>
-            </form>
-        {% endfor %}
-        <p>Can't find what you're looking for? <a href="/add-item" id="click-here">Click here</a> to add item.</p>
-    {% endif %}
+        {% else %}
+            {% for item in items %}        
+                <h2 id="item-name">{{ item.name|title }}</h2>
+                <div class="store-list">
+                    <p class="price-li">Walmart Price: 
+                        {% if item.walmart_price is None %}
+                            <form class="price-li" action="/update-price" method="GET">
+                                <input type="hidden" name="store" value="Walmart"/>
+                                <input type="hidden" name="name" value="{{ item.name }}"/>
+                                <input class="btn add-price" id type="submit" value="Add Price"/>
+                            </form>
+                        {% else %}
+                            ${{ item.walmart_price }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="store-list">
+                    <p class="price-li">Broulim's Price: 
+                        {% if item.broulims_price is None %}
+                            <form class="price-li" action="/update-price" method="GET">
+                                <input type="hidden" name="store" value="Broulims"/>
+                                <input type="hidden" name="name" value="{{ item.name }}"/>
+                                <input class="btn add-price" type="submit" value="Add Price"/>
+                            </form>
+                        {% else %}
+                            ${{ item.broulims_price }}
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="store-list">
+                    <p class="price-li">Albertson's Price: 
+                        {% if item.albertsons_price is None %}
+                            <form class="price-li" action="/update-price" method="GET">
+                                <input type="hidden" name="store" value="Albertsons"/>
+                                <input type="hidden" name="name" value="{{ item.name }}"/>
+                                <input class="btn add-price" type="submit" value="Add Price"/>
+                            </form>
+                        {% else %}
+                            ${{ item.albertsons_price }}
+                        {% endif %}
+                    </p>
+                </div>
+                <form method="POST"> {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ item.id }}"/>
+                    <input class="btn" id="add-cheapest" type="submit" value="Add to List"/>
+                </form>
+            {% endfor %}
+            <p id="cant-find">Can't find what you're looking for? <a href="/add-item" id="click-here">Click here</a> to add item.</p>
+        {% endif %}
+    </main>
 {% endblock content %}

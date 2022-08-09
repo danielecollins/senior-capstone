@@ -1,89 +1,92 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Grocery List</h1>
+    <h1 id="list-ttl">Shopping List</h1>
     <!-- Walmart list -->
-    {% if walmart_list|length != 0 %}
+    <main>
+        {% if walmart_list|length != 0 %}
         <h2 class="store">Walmart</h2>
-    {% endif %}
-    <ul class="store_list">
-        {% for item in walmart_list %} 
-            <li class="list_item">
-                <form method="POST"> {% csrf_token %}
-                    <input type="hidden" name="id" value="{{ item.id }}"/>
-                    <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
-                    <input class="checkbox" type="checkbox" name="bought" onchange="this.form.submit()"/>
-                </form>
-                <p>
-                    {{ item.quantity }}  {{ item.name|title }} - 
-                    {% if item.price is None %}
-                        ???
-                    {% else %}
-                        ${{ item.price }} Each
-                    {% endif %}
-                </p>
-                <form class="update-price-list" action="/update-price/" method="GET">
-                    <input type="hidden" name="store" value="Walmart"/>
-                    <input type="hidden" name="name" value="{{ item.name }}"/>
-                    <input class="btn" type="submit" value="Update Price"/>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <!-- Broulim's list -->
-    {% if broulims_list|length != 0 %}
-        <h2 class="store">Broulim's</h2>
-    {% endif %}
-    <ul class="store_list">
-        {% for item in broulims_list %}
-            <li class="list_item">
-                <form method="POST"> {% csrf_token %}
-                    <input type="hidden" name="id" value="{{ item.id }}"/>
-                    <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
-                    <input class="checkbox" type="checkbox" name="bought" onChange="this.form.submit()"/>
-                </form>
-                <p>
-                    {{ item.quantity }}  {{ item.name|title }} - 
-                    {% if item.price is None %}
-                        ???
-                    {% else %}
-                        ${{ item.price }} Each
-                    {% endif %}
-                </p>
-                <form class="update-price-list" action="/update-price/" method="GET">
-                    <input type="hidden" name="store" value="Broulims"/>
-                    <input type="hidden" name="name" value="{{ item.name }}"/>
-                    <input class="btn" type="submit" value="Update Price"/>
-                </form>
-            </li> 
-        {% endfor %}
-    </ul>
-    <!-- Albertsons list -->
-    {% if albertsons_list|length != 0 %}
-        <h2 class="store">Albertsons</h2>
-    {% endif %}
-    <ul class="store_list">
-        {% for item in albertsons_list %}
-            <li class="list_item">
-                <form method="POST"> {% csrf_token %}
-                    <input type="hidden" name="id" value="{{ item.id }}"/>
-                    <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
-                    <input class="checkbox" type="checkbox" name="bought" onChange="this.form.submit()"/>
-                </form>
-                <p>
-                    {{ item.quantity }}  {{ item.name|title }} - 
-                    {% if item.price is None %}
-                        ???
-                    {% else %}
-                        ${{ item.price }} Each
-                    {% endif %}
-                </p>
-                <form class="update-price-list" action="/update-price/" method="GET">
-                    <input type="hidden" name="store" value="Albertsons"/>
-                    <input type="hidden" name="name" value="{{ item.name }}"/>
-                    <input class="btn" type="submit" value="Update Price"/>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+        {% endif %}
+        <ul class="store_list">
+            {% for item in walmart_list %} 
+                <li class="list_item">
+                    <form method="POST"> {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ item.id }}"/>
+                        <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
+                        <input class="checkbox" type="checkbox" name="bought" onchange="this.form.submit()"/>
+                    </form>
+                    <p>
+                        {{ item.quantity }}  {{ item.name|title }}: 
+                        {% if item.price is None %}
+                            ???
+                        {% else %}
+                            ${{ item.price }} Each
+                        {% endif %}
+                    </p>
+                    <form class="update-price-list" action="/update-price/" method="GET">
+                        <input type="hidden" name="store" value="Walmart"/>
+                        <input type="hidden" name="name" value="{{ item.name }}"/>
+                        <input class="btn up-btn" type="submit" value="Update Price"/>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- Broulim's list -->
+        {% if broulims_list|length != 0 %}
+            <h2 class="store">Broulim's</h2>
+        {% endif %}
+        <ul class="store_list">
+            {% for item in broulims_list %}
+                <li class="list_item">
+                    <form method="POST"> {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ item.id }}"/>
+                        <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
+                        <input class="checkbox" type="checkbox" name="bought" onChange="this.form.submit()"/>
+                    </form>
+                    <p>
+                        {{ item.quantity }}  {{ item.name|title }}:  
+                        {% if item.price is None %}
+                            ???
+                        {% else %}
+                            ${{ item.price }} Each
+                        {% endif %}
+                    </p>
+                    <form class="update-price-list" action="/update-price/" method="GET">
+                        <input type="hidden" name="store" value="Broulims"/>
+                        <input type="hidden" name="name" value="{{ item.name }}"/>
+                        <input class="btn up-btn" type="submit" value="Update Price"/>
+                    </form>
+                </li> 
+            {% endfor %}
+        </ul>
+        <!-- Albertsons list -->
+        {% if albertsons_list|length != 0 %}
+            <h2 class="store">Albertsons</h2>
+        {% endif %}
+        <ul class="store_list">
+            {% for item in albertsons_list %}
+                <li class="list_item">
+                    <form method="POST"> {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ item.id }}"/>
+                        <input type="hidden" name="quantity" value="{{ item.quantity }}"/>
+                        <input class="checkbox" type="checkbox" name="bought" onChange="this.form.submit()"/>
+                    </form>
+                    <p>
+                        {{ item.quantity }}  {{ item.name|title }}: 
+                        {% if item.price is None %}
+                            ???
+                        {% else %}
+                            ${{ item.price }} Each
+                        {% endif %}
+                    </p>
+                    <form class="update-price-list" action="/update-price/" method="GET">
+                        <input type="hidden" name="store" value="Albertsons"/>
+                        <input type="hidden" name="name" value="{{ item.name }}"/>
+                        <input class="btn up-btn" type="submit" value="Update Price"/>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <h2 id="total">Total: ${{ total }}</h2>
+    </main>
 {% endblock content %}

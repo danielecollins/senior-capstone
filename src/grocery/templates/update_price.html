@@ -2,10 +2,12 @@
 
 {% block content %}
     <h1 id="update-price-title">Update the Price of {{ name|title }} at {{ store }}</h1>
-    <form id="update-price" method="POST"> {% csrf_token %}
-        <label class="label">Price:
-            <input class="field" type="number" name="price" placeholder="0.00" step="0.01"/>
-        </label>
-        <input class="save" type="submit" value="Save"/>
-    </form>
+    <main>
+        <form id="update-price" method="POST"> {% csrf_token %}
+            <label>Price:
+                <input type="number" name="price" placeholder="0.00" step="0.01"/>
+            </label>
+            <input class="btn" type="submit" value="Save"/>
+        </form>
+    </main>
 {% endblock content %}
