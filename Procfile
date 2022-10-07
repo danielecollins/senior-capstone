@@ -1,1 +1,0 @@
-web: gunicorn price_pal.wsgi
